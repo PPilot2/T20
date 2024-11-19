@@ -1,134 +1,277 @@
-// src/components/LandingPage.jsx
-import React, { useState } from 'react';
+import {
+  FaUserGraduate,
+  FaCheckCircle,
+  FaStar,
+  FaLightbulb,
+  FaAward,
+} from "react-icons/fa";
+import Slider from "react-slick"; // Import react-slick
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import Footer from "./Footer";
+import React, { useState, useEffect } from 'react';
 
 const LandingPage = () => {
+  const features = [
+    {
+      icon: <FaUserGraduate />,
+      title: "College Selector",
+      description: "An intuitive swipe interface that personalizes college choices based on your academic and personal data. Swipe to discover the perfect fit, and let us categorize your options as target, safety, or reach schools based on your profile.",
+      details: "Explore colleges by location, tuition, known specialties, and acceptance rate. Personalized recommendations adjust based on your strengths, goals, and preferences."
+    },
+    {
+      icon: <FaCheckCircle />,
+      title: "Course Prep",
+      description: "An input-driven study plan that personalizes your learning path based on your current courses. Free video tutorials and practice materials, curated for your needs.",
+      details: "Upload your courses or transcript, and receive tailored prep materials to guide your learning. Interactive video tutorials and embedded study resources with author credits provide a well-rounded approach."
+    },
+    {
+      icon: <FaStar />,
+      title: "Exam Prep",
+      description: "Tailored SAT, ACT, and PSAT prep courses based on your current performance and target score.",
+      details: "Access a range of study resources, including free practice tests, targeted practice questions, and study guides, personalized to address your strengths and weaknesses."
+    },
+    {
+      icon: <FaLightbulb />,
+      title: "Essay Prep",
+      description: "A fully integrated AI tool that automatically revises your essays with feedback on grammar, tone, structure, and content.",
+      details: "Improve your essay with real-time feedback. Our AI suggests ways to improve clarity, coherence, and persuasiveness, offering a scoring system that breaks down each component."
+    },
+    {
+      icon: <FaAward />,
+      title: "AI Counselor",
+      description: "Ask questions about anything related to college, courses, or career paths, and get tailored recommendations from an AI counselor.",
+      details: "Our AI counselor helps you identify beneficial extracurriculars, relevant scholarships, career paths based on your interests, and advice on how to make your application stand out."
+    },
+    // New Card
+    {
+      icon: <FaLightbulb />,
+      title: "Career Insights",
+      description: "Detailed guidance on potential career paths, industries, and opportunities aligned with your interests and strengths.",
+      details: "Analyze industry trends, skill requirements, and educational paths. Discover your dream career and plan the steps to achieve it with confidence."
+    }
+  ];
+  
   const testimonials = [
-    { text: "Top 20 helped me find the perfect college based on my scores and interests. The personalized recommendations were spot on!", author: "Sarah W., High School Senior" },
-    { text: "I loved the essay revision feature! It gave me great tips and helped me improve my application.", author: "Mark L., College Applicant" },
-    { text: "The college selector tool was a game-changer! It helped me narrow down my choices and find a college that matched my goals.", author: "Emily R., High School Junior" },
-    { text: "The SAT prep resources were amazing, and the personalized feedback made a huge difference in my score.", author: "John K., High School Senior" },
-    { text: "Top 20 helped me organize my college applications and get personalized advice every step of the way.", author: "Samantha M., College Applicant" },
-    { text: "I found the exact college I was looking for! The College Selector was spot-on with its recommendations.", author: "Luke T., High School Senior" },
-    { text: "The course prep resources were exactly what I needed to improve my SAT scores!", author: "Olivia P., High School Junior" },
-    { text: "Thanks to the AI-powered essay feedback, I was able to improve my application and get accepted to my dream school.", author: "James A., College Applicant" },
+    {
+      name: "Alex Johnson",
+      feedback:
+        "Top 20 made college applications stress-free. Their personalized college selector was a game-changer!",
+      role: "Student, Class of 2025",
+    },
+    {
+      name: "Maria Lopez",
+      feedback:
+        "The SAT prep resources helped me boost my score by 150 points. Highly recommended!",
+      role: "High School Senior",
+    },
+    {
+      name: "John Smith",
+      feedback:
+        "The AI Counselor gave me invaluable advice on scholarships and extracurriculars.",
+      role: "First-Generation College Applicant",
+    },
+    {
+      name: "Emily Carter",
+      feedback:
+        "Thanks to the essay prep tool, my personal statement received great feedback from admissions!",
+      role: "Accepted at Harvard",
+    },
+    {
+      name: "Ryan Chen",
+      feedback:
+        "This platform’s interactive visualizations helped me track my applications and stay organized.",
+      role: "Freshman, UC Berkeley",
+    },
   ];
 
-  const testimonialsPerPage = 4;  // Show 4 testimonials at once
-  const totalPages = Math.ceil(testimonials.length / testimonialsPerPage);
-  const [currentPage, setCurrentPage] = useState(0);
+  const testimonialSettings = {
+    infinite: true,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 0, // Constant scroll
+    speed: 5000, // Adjust speed to control scroll pace
+    cssEase: "linear",
+    centerMode: true,
+    variableWidth: true, // Adjust slide width dynamically
+    pauseOnHover: false, // Enable pause on hover
+    arrows: false,
+    responsive: [
+      {
+        breakpoint: 1024, // For screens <= 1024px
+        settings: {
+          slidesToShow: 2, // Show 2 slides
 
-  const handleNext = () => {
-    // Infinite scroll: Loop back to the first page when reaching the end
-    setCurrentPage((prevPage) => (prevPage + 1) % totalPages);
+        },
+      },
+      {
+        breakpoint: 768, // For screens <= 768px
+        settings: {
+          slidesToShow: 1, // Show 1 slide
+          autoplay: true,
+        },
+      },
+    ],
   };
+  
 
-  const handlePrev = () => {
-    // Infinite scroll: Loop back to the last page when reaching the start
-    setCurrentPage((prevPage) => (prevPage - 1 + totalPages) % totalPages);
-  };
-
-  const currentTestimonials = testimonials.slice(currentPage * testimonialsPerPage, (currentPage + 1) * testimonialsPerPage);
 
   return (
     <div className="min-h-screen flex flex-col bg-gray-50">
-      {/* Header Section */}
-      <header className="bg-gradient-to-r from-blue-600 to-blue-900 text-white py-12 text-center">
-        <h1 className="text-5xl font-bold mb-4">Top 20</h1>
-        <p className="text-xl max-w-3xl mx-auto">
-          Discover the best colleges, prepare for exams, and get expert advice—all in one place.
-        </p>
-      </header>
-
-      {/* Sign Up and Sign In Buttons */}
-      <section className="py-8 text-center">
-        <div className="space-x-4">
-            <a href="/signup"><button className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700">Sign Up</button></a>
-            <a href="/signin"><button className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700">Sign In</button></a>
-        </div>
-      </section>
-
-      {/* Testimonials Section with Arrow Pagination and Infinite Scrolling */}
-      <section className="py-12 text-center bg-white flex-grow">
-        <h2 className="text-3xl font-semibold mb-6">What Our Users Are Saying</h2>
-        
-        {/* Testimonials Grid */}
-        <div className="flex justify-center flex-wrap gap-8 mb-6">
-          {currentTestimonials.map((testimonial, index) => (
-            <div key={index} className="w-80 p-6 bg-gray-100 rounded-lg shadow-md">
-              <p className="italic mb-4">"{testimonial.text}"</p>
-              <p className="font-semibold">- {testimonial.author}</p>
-            </div>
-          ))}
-        </div>
-
-        {/* Arrow Pagination */}
-        <div className="flex justify-center items-center space-x-4 mb-6">
-          {/* Left Arrow */}
-          <button
-            onClick={handlePrev}
-            className="px-4 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 disabled:bg-gray-300"
-            disabled={currentPage === 0}
-          >
-            <span className="text-2xl">&#8592;</span> {/* Left Arrow */}
-          </button>
-
-          {/* Pagination Container */}
-          <div className="flex overflow-x-auto space-x-2 hidden">
-            {/* Empty container for pagination purposes */}
-          </div>
-
-          {/* Right Arrow */}
-          <button
-            onClick={handleNext}
-            className="px-4 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 disabled:bg-gray-300"
-            disabled={currentPage === totalPages - 1}
-          >
-            <span className="text-2xl">&#8594;</span> {/* Right Arrow */}
-          </button>
+      {/* Hero Section */}
+      <section className="bg-gradient-to-r from-blue-600 via-indigo-600 to-indigo-700 text-white h-96 flex flex-col justify-center items-center">
+        <h1 className="text-[160px] font-semibold mt-20 mb-5">Top 20</h1>
+        <div className="flex space-x-4 ">
+          <a href="/signup">
+            <button className="bg-white px-6 py-2 rounded-xl text-indigo-600 hover:bg-indigo-500 hover:text-white">
+              Sign Up
+            </button>
+          </a>
+          <a href="/signin">
+            <button className="bg-indigo-700 px-6 py-2 rounded-xl hover:bg-white hover:text-indigo-600">
+              Sign In
+            </button>
+          </a>
         </div>
       </section>
 
       {/* Features Section */}
-      <section className="py-12 bg-blue-100">
-        <h2 className="text-3xl font-semibold text-center mb-6">Core Features</h2>
-        <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          <div className="bg-white p-6 rounded-lg shadow-md">
-            <h3 className="font-semibold text-xl mb-3">College Selector</h3>
-            <p>Get personalized college recommendations based on your scores, GPA, and preferences.</p>
+      <section className="py-20 bg-gray-100 text-white">
+        <div className="text-center mb-16">
+          <h2 className="text-5xl font-semibold mb-4 text-indigo-600">
+            Uncover Your College Journey
+          </h2>
+          <p className="text-xl text-indigo-600">
+            Tools and features that guide you every step of the way—from college
+            selection to prep and application insights.
+          </p>
+        </div>
+        <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-16 px-8">
+          {features.map((feature, index) => (
+            <div
+              key={index}
+              className="relative bg-white p-12 rounded-3xl shadow-xl transition-all transform hover:scale-105 hover:shadow-2xl"
+            >
+              <div className="absolute left-4 top-4 text-3xl text-indigo-600">
+                {feature.icon}
+              </div>
+              <h3 className="text-2xl font-semibold text-indigo-600 mt-12 mb-4">
+                {feature.title}
+              </h3>
+              <p className="text-lg text-gray-800">{feature.description}</p>
+              <div className="mt-4 text-sm text-gray-600">
+                {feature.details}
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Data Visualization Section */}
+      <section className="py-20 bg-gradient-to-r from-blue-600 via-indigo-600 to-indigo-700">
+        <div className="text-center mb-12">
+          <h2 className="text-5xl font-semibold mb-4 text-white">
+            Data at Your Fingertips
+          </h2>
+          <p className="text-lg text-white">
+            Interactive visualizations to help you track your progress, test
+            scores, and college applications.
+          </p>
+        </div>
+        <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-16 px-8">
+          <div className="bg-white p-12 rounded-3xl shadow-xl transition-all hover:scale-105 hover:shadow-2xl">
+            <h3 className="text-2xl font-semibold text-indigo-600 mb-4">
+              Application Progress
+            </h3>
+            <p className="text-lg text-gray-800">
+              Visualize your application progress with an interactive timeline.
+              See what steps remain and which milestones you've achieved.
+            </p>
           </div>
-          <div className="bg-white p-6 rounded-lg shadow-md">
-            <h3 className="font-semibold text-xl mb-3">Course Prep</h3>
-            <p>Access free video resources and personalized exam prep for SAT, PSAT, and ACT.</p>
+          <div className="bg-white p-12 rounded-3xl shadow-xl transition-all hover:scale-105 hover:shadow-2xl">
+            <h3 className="text-2xl font-semibold text-indigo-600 mb-4">
+              Score Improvement
+            </h3>
+            <p className="text-lg text-gray-800">
+              Track your SAT/ACT score improvements over time with a dynamic
+              graph that adapts to your study progress and practice results.
+            </p>
           </div>
-          <div className="bg-white p-6 rounded-lg shadow-md">
-            <h3 className="font-semibold text-xl mb-3">Essay Prep</h3>
-            <p>Improve your application with AI-powered essay revision and feedback.</p>
+          <div className="bg-white p-12 rounded-3xl shadow-xl transition-all hover:scale-105 hover:shadow-2xl">
+            <h3 className="text-2xl font-semibold text-indigo-600 mb-4">
+              College Compatibility
+            </h3>
+            <p className="text-lg text-gray-800">
+              See a personalized graph representing your chances of getting into
+              various colleges based on your profile, preferences, and progress.
+            </p>
           </div>
-          <div className="bg-white p-6 rounded-lg shadow-md">
-            <h3 className="font-semibold text-xl mb-3">Forums</h3>
-            <p>Ask questions and get advice from peers, alumni, and experts in the college community.</p>
+        </div>
+      </section>
+
+      {/* Testimonials Section */}
+      <section className="py-16 bg-gray-100 text-white">
+        <div className="w-screen overflow-hidden">
+          <Slider {...testimonialSettings}>
+            {testimonials.map((testimonial, index) => (
+              <div key={index} className="testimonial-card p-4">
+                <div className="bg-white text-gray-800 rounded-xl shadow-lg p-6 text-center w-[300px] mx-2">
+                  <p className="italic text-gray-600">"{testimonial.feedback}"</p>
+                  <h4 className="font-bold mt-4 text-indigo-600">{testimonial.name}</h4>
+                  <p className="text-sm text-gray-500">{testimonial.role}</p>
+                </div>
+              </div>
+            ))}
+          </Slider>
+        </div>
+      </section>
+
+      {/* Forum & Gamification Section */}
+      <section className="py-20 bg-indigo-600 text-white">
+        <div className="text-center mb-16">
+          <h2 className="text-5xl font-semibold mb-4">Engage & Level Up</h2>
+          <p className="text-xl">
+            Join discussions, ask questions, and earn points or badges for your
+            activity. The more you engage, the more rewards you earn.
+          </p>
+        </div>
+        <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-16 px-8">
+          <div className="bg-white p-12 rounded-3xl shadow-xl transition-all hover:scale-105 hover:shadow-2xl">
+            <h3 className="text-2xl font-semibold text-indigo-600 mb-4">
+              College Experiences
+            </h3>
+            <p className="text-lg text-gray-800">
+              Read real stories from students and alumni. Get a glimpse of
+              college life and learn from others' experiences.
+            </p>
           </div>
-          <div className="bg-white p-6 rounded-lg shadow-md">
-            <h3 className="font-semibold text-xl mb-3">AI Counselor</h3>
-            <p>Get career and college advice tailored to your academic profile and goals.</p>
+          <div className="bg-white p-12 rounded-3xl shadow-xl transition-all hover:scale-105 hover:shadow-2xl">
+            <h3 className="text-2xl font-semibold text-indigo-600 mb-4">
+              Extracurriculars & Scholarships
+            </h3>
+            <p className="text-lg text-gray-800">
+              Discover opportunities to enhance your profile. Earn points for
+              participating in extracurriculars and engaging with scholarship
+              resources.
+            </p>
           </div>
-          <div className="bg-white p-6 rounded-lg shadow-md">
-            <h3 className="font-semibold text-xl mb-3">Advanced Filters</h3>
-            <p>Search for colleges based on specific criteria like location, population, and more.</p>
+          <div className="bg-white p-12 rounded-3xl shadow-xl transition-all hover:scale-105 hover:shadow-2xl">
+            <h3 className="text-2xl font-semibold text-indigo-600 mb-4">
+              Test Prep Challenges
+            </h3>
+            <p className="text-lg text-gray-800">
+              Compete in test prep challenges. Complete modules, track your
+              scores, and earn badges for your improvement.
+            </p>
           </div>
         </div>
       </section>
 
       {/* Footer Section */}
-      <footer className="bg-gray-800 text-white py-6 text-center mt-auto">
-        <p>&copy; 2024 Top 20. All rights reserved.</p>
-        <div className="flex justify-center space-x-4 mt-4">
-          <a href="#" className="hover:underline">Privacy Policy</a>
-          <a href="#" className="hover:underline">Terms of Service</a>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
-}
+};
 
 export default LandingPage;

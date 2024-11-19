@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Navbar from "./Navbar";
 import MajorSelector from "./MajorSelector";
+import Footer from "./Footer";
 
 const Profile = () => {
   const [profilePicture, setProfilePicture] = useState(null);
@@ -55,94 +56,94 @@ const Profile = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="min-h-screen bg-gradient-to-r from-indigo-600 to-blue-600 font-sans">
       <Navbar />
-      <div className="max-w-4xl mx-auto bg-white p-8 rounded-lg shadow-lg mt-10 mb-10">
-        <h1 className="text-3xl font-bold text-gray-800 mb-6">Edit Profile</h1>
+      <div className="max-w-3xl mx-auto bg-white p-10 rounded-3xl shadow-xl mt-12 mb-12">
+        <h1 className="text-4xl font-semibold text-gray-800 mb-8 text-center">Profile</h1>
         <form onSubmit={handleSubmit}>
           {/* Profile Picture */}
-          <div className="mb-6">
-            <label className="block text-gray-700 font-medium mb-2">Profile Picture</label>
-            <div className="flex items-center space-x-4">
+          <div className="mb-8">
+            <label className="block text-gray-700 text-lg font-medium mb-2">Profile Picture</label>
+            <div className="flex items-center space-x-6">
               <img
                 src={profilePicture || "default-user-icon.png"}
                 alt="Profile"
-                className="w-20 h-20 rounded-full object-cover"
+                className="w-24 h-24 rounded-full object-cover shadow-md"
               />
               <input
                 type="file"
                 accept="image/*"
-                className="block w-full text-sm text-gray-600"
+                className="text-sm text-gray-700 file:border-0 file:py-2 file:px-4 file:rounded-xl file:bg-gray-200 file:text-gray-700 hover:file:bg-gray-300"
                 onChange={handleImageChange}
               />
             </div>
           </div>
 
           {/* Personal Information */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
             <div>
-              <label className="block text-gray-700 font-medium mb-2">Username *</label>
+              <label className="block text-gray-700 text-lg font-medium mb-2">Username *</label>
               <input
                 type="text"
                 name="username"
                 value={formData.username}
                 onChange={handleInputChange}
-                className="w-full p-2 border rounded-lg"
+                className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-600"
                 required
               />
             </div>
             <div>
-              <label className="block text-gray-700 font-medium mb-2">Firstname *</label>
+              <label className="block text-gray-700 text-lg font-medium mb-2">Firstname *</label>
               <input
                 type="text"
                 name="firstname"
                 value={formData.firstname}
                 onChange={handleInputChange}
-                className="w-full p-2 border rounded-lg"
+                className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-600"
                 required
               />
             </div>
             <div>
-              <label className="block text-gray-700 font-medium mb-2">Lastname *</label>
+              <label className="block text-gray-700 text-lg font-medium mb-2">Lastname *</label>
               <input
                 type="text"
                 name="lastname"
                 value={formData.lastname}
                 onChange={handleInputChange}
-                className="w-full p-2 border rounded-lg"
+                className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-600"
                 required
               />
             </div>
             <div>
-              <label className="block text-gray-700 font-medium mb-2">Email *</label>
+              <label className="block text-gray-700 text-lg font-medium mb-2">Email *</label>
               <input
                 type="email"
                 name="email"
                 value={formData.email}
                 onChange={handleInputChange}
-                className="w-full p-2 border rounded-lg"
+                className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-600"
                 required
               />
             </div>
             <div>
-              <label className="block text-gray-700 font-medium mb-2">Location *</label>
+              <label className="block text-gray-700 text-lg font-medium mb-2">Location *</label>
               <input
                 type="text"
                 name="location"
                 value={formData.location}
                 onChange={handleInputChange}
-                className="w-full p-2 border rounded-lg"
+                className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-600"
                 required
               />
             </div>
             <div>
-              <label className="block text-gray-700 font-medium mb-2">Graduation Year *</label>
+              <label className="block text-gray-700 text-lg font-medium mb-2">Graduation Year *</label>
               <input
                 type="text"
                 name="graduationYear"
                 value={formData.graduationYear}
                 onChange={handleInputChange}
-                className="w-full p-2 border rounded-lg"
+                className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-600"
                 required
               />
             </div>
@@ -151,10 +152,9 @@ const Profile = () => {
           {/* Major */}
           <MajorSelector />
 
-
           {/* Courses and Grades */}
-          <div className="mb-6">
-            <label className="block text-gray-700 font-medium mb-2">Courses/Transcript</label>
+          <div className="mb-8">
+            <label className="block text-gray-700 text-lg font-medium mb-2">Courses/Transcript</label>
             {formData.courses.map((course, index) => (
               <div key={index} className="flex space-x-4 mb-4">
                 <input
@@ -163,7 +163,7 @@ const Profile = () => {
                   placeholder="Course Name"
                   value={course.course}
                   onChange={(e) => handleCourseChange(index, e)}
-                  className="w-full p-2 border rounded-lg"
+                  className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-600"
                 />
                 <input
                   type="text"
@@ -171,23 +171,23 @@ const Profile = () => {
                   placeholder="Grade"
                   value={course.grade}
                   onChange={(e) => handleCourseChange(index, e)}
-                  className="w-1/4 p-2 border rounded-lg"
+                  className="w-1/4 p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-600"
                 />
               </div>
             ))}
             <button
               type="button"
               onClick={addCourse}
-              className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition"
+              className="bg-blue-600 text-white px-6 py-3 rounded-xl hover:bg-blue-700 transition"
             >
               Add Course
             </button>
           </div>
 
           {/* Scores */}
-          <div className="mb-6">
-            <label className="block text-gray-700 font-medium mb-2">Test Scores</label>
-            <div className="grid grid-cols-3 gap-4">
+          <div className="mb-8">
+            <label className="block text-gray-700 text-lg font-medium mb-2">Test Scores</label>
+            <div className="grid grid-cols-3 gap-8">
               <input
                 type="text"
                 name="psat"
@@ -196,7 +196,7 @@ const Profile = () => {
                 onChange={(e) =>
                   setFormData({ ...formData, scores: { ...formData.scores, psat: e.target.value } })
                 }
-                className="p-2 border rounded-lg"
+                className="p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-600"
               />
               <input
                 type="text"
@@ -206,7 +206,7 @@ const Profile = () => {
                 onChange={(e) =>
                   setFormData({ ...formData, scores: { ...formData.scores, sat: e.target.value } })
                 }
-                className="p-2 border rounded-lg"
+                className="p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-600"
               />
               <input
                 type="text"
@@ -216,32 +216,35 @@ const Profile = () => {
                 onChange={(e) =>
                   setFormData({ ...formData, scores: { ...formData.scores, act: e.target.value } })
                 }
-                className="p-2 border rounded-lg"
+                className="p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-600"
               />
             </div>
           </div>
 
           {/* Extracurricular Activities */}
-          <div className="mb-6">
-            <label className="block text-gray-700 font-medium mb-2">Extracurricular Activities</label>
+          <div className="mb-8">
+            <label className="block text-gray-700 text-lg font-medium mb-2">Extracurricular Activities</label>
             <textarea
               name="extracurriculars"
               value={formData.extracurriculars}
               onChange={handleInputChange}
-              className="w-full p-2 border rounded-lg"
+              className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-600"
               rows="4"
-            ></textarea>
+            />
           </div>
 
           {/* Submit Button */}
-          <button
-            type="submit"
-            className="w-full bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition"
-          >
-            Save Profile
-          </button>
+          <div className="text-center">
+            <button
+              type="submit"
+              className="bg-blue-600 text-white px-8 py-4 rounded-xl hover:bg-blue-700 transition"
+            >
+              Save Profile
+            </button>
+          </div>
         </form>
       </div>
+      <Footer />
     </div>
   );
 };

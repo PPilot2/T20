@@ -6,6 +6,7 @@ import Profile from "./components/Profile";
 import SignIn from "./components/SignIn";
 import SignUp from "./components/SignUp";
 import LandingPage from "./components/LandingPage";
+import GamePlan from "./components/GamePlan";
 
 const App = () => {
   return (
@@ -17,7 +18,8 @@ const App = () => {
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/signin" element={<SignIn />} />
             <Route path="/signup" element={<SignUp />} />
-            <Route path="/profile" element={<Profile />} /> {/* Add this route */}
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/plan" element={<GamePlan />} />
           </Routes>
         </div>
       </div>
